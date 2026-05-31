@@ -5,29 +5,42 @@ import datetime
 import yfinance as yf
 from curl_cffi import requests
 
-
-#session = requests.Session(impersonate="chrome")
-
+session = requests.Session(impersonate="chrome")
 
 st.title("Stock Market Data Analysis!!")
 
-#ticker_symbol = 'AAPL'  # Default ticker symbol
+# ticker_symbol = 'AAPL'
 ticker_symbol = st.text_input("Please enter Ticker Symbol", "AAPL")
 
-ticker_data = yf.Ticker(ticker_symbol)#, session=session)
-
-#start_date = datetime.date(2026, 1, 1)
-#end_date = datetime.date(2026, 5, 1)
+ticker_data = yf.Ticker(ticker_symbol, session=session)
 
 col1, col2 = st.columns(2)
 
 with col1:
-    start_date = st.date_input("Please enter Starting Date", datetime.date(2019, 1, 1))
+    start_date = st.date_input(
+        "Please enter Starting Date",
+        datetime.date(2019, 1, 1)
+    )
 
 with col2:
-    end_date = st.date_input("Please enter End Date", datetime.date(2022, 12, 31))
+    end_date = st.date_input(
+        "Please enter End Date",
+        datetime.date(2022, 12, 31)
+    )
 
-ticker_df = ticker_data.history( start=start_date, end=end_date)
+try:
+    ticker_df = ticker_data.history(
+        start=start_date,
+        end=end_date
+    )
+
+    if ticker_df.empty:
+        st.error("No data found for the selected ticker/date range.")
+        st.stop()
+
+except Exception as e:
+    st.error(f"Error fetching stock data: {e}")
+    st.stop()
 
 st.dataframe(ticker_df)
 
@@ -47,19 +60,20 @@ with col2:
     st.write("## High price of " + ticker_symbol)
     st.line_chart(ticker_df["High"])
 
-
-
-
 # Exponential Moving Average
 st.write("## Exponential Moving Average")
 
 alpha = st.slider(
-    "Select Alpha value for EMA", min_value=0.01, max_value=1.0, value=0.1, step=0.01
+    "Select Alpha value for EMA",
+    min_value=0.01,
+    max_value=1.0,
+    value=0.1,
+    step=0.01
 )
 
-# Calculate EMA
 ema_values = []
-ema = ticker_df["Close"].iloc[0]  # Initialize with first closing price
+
+ema = ticker_df["Close"].iloc[0]
 ema_values.append(ema)
 
 for i in range(1, len(ticker_df)):
@@ -70,9 +84,8 @@ ticker_df["EMA"] = ema_values
 
 st.line_chart(ticker_df[["Close", "EMA"]])
 
-
 num = st.number_input("Insert a number")
 
 if st.button("Calculate Square"):
-    result = num**2
+    result = num ** 2
     st.text("Square of " + str(num) + " is " + str(result))
