@@ -45,9 +45,9 @@ def home():
     </head>
     <body>
         <div class="card">
-            <h1>AWS ECS Demo</h1>
+            <h1>Welcome to CI Session</h1>
             <p>Loan Prediction Application</p>
-            <p>Successfully Running on Amazon ECS</p>
+            <p>Successfully Testing the Application</p>
         </div>
     </body>
     </html>
