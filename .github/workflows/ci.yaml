@@ -35,25 +35,25 @@ jobs:
               working-directory: CI_session
               run: |
                     python -m pytest
+#this is for pushing the docker image to dockerhub and then to ECR.
+    job2:
+        needs: job1  # This job will run after job1 completes successfully  [lint, test-unit]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4  # v4 is the version of the action we're using, not the branch of the code;
+            - name: Login to DockerHub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKER_USERNAME }}  # Replace with your Docker Hub username
+                password: ${{ secrets.DOCKER_PASSWORD }} # Use a secret for the password in production
+            - name: Build Docker image
+              uses: docker/build-push-action@v6
+              with:
+                push: true
+                tags: apoorva46/ci_demo:latest  # Replace with your Docker Hub username and image name
 
-    # job2:
-    #     needs: job1  # This job will run after job1 completes successfully  [lint, test-unit]
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - name: Checkout code
-    #           uses: actions/checkout@v4  # v4 is the version of the action we're using, not the branch of the code;
-    #         - name: Login to DockerHub
-    #           uses: docker/login-action@v3
-    #           with:
-    #             username: ${{ secrets.DOCKER_USERNAME }}  # Replace with your Docker Hub username
-    #             password: ${{ secrets.DOCKER_PASSWORD }} # Use a secret for the password in production
-    #         - name: Build Docker image
-    #           uses: docker/build-push-action@v6
-    #           with:
-    #             push: true
-    #             tags: shivam13juna/ci_demo:latest  # Replace with your Docker Hub username and image name
-
-    #job3:
+    # job3:
     #  needs: job1
     #  runs-on: ubuntu-latest
     #  steps:
