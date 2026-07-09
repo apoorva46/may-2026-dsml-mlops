@@ -50,6 +50,8 @@ jobs:
             - name: Build Docker image
               uses: docker/build-push-action@v6
               with:
+                context: ./CI_session
+                file: ./CI_session/Dockerfile
                 push: true
                 tags: apoorvaa15/ci_demo:latest  # Replace with your Docker Hub username and image name
 
