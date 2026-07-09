@@ -51,7 +51,7 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                 push: true
-                tags: apoorva46/ci_demo:latest  # Replace with your Docker Hub username and image name
+                tags: apoorvaa15/ci_demo:latest  # Replace with your Docker Hub username and image name
 
     # job3:
     #  needs: job1
