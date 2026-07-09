@@ -2,7 +2,7 @@ from base_file import add, subtract, multiply, divide
 
 
 def test_add():
-	assert add(2, 3) == 4, "Expected add(2, 3) to be 5"
+	assert add(2, 3) == 5, "Expected add(2, 3) to be 5"
 	assert add(-1, 1) == 0, "Expected add(-1, 1) to be 0"
 	assert add(0, 0) == 0, "Expected add(0, 0) to be 0"
 
