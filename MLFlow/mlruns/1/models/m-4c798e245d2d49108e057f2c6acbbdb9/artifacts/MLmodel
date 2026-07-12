@@ -1,0 +1,23 @@
+artifact_path: file:c:/Users/Apoorva/OneDrive/Documents/GitHub/may-2026-dsml-mlops/MLFlow/mlruns/1/models/m-4c798e245d2d49108e057f2c6acbbdb9/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.13.13
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.14.0
+model_id: m-4c798e245d2d49108e057f2c6acbbdb9
+model_size_bytes: 399937
+model_uuid: m-4c798e245d2d49108e057f2c6acbbdb9
+prompts: null
+run_id: bda978125b0841ffb4abb4a2a0cef7b9
+utc_time_created: '2026-07-12 12:15:16.093934'
